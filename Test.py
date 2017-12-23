@@ -70,11 +70,10 @@ def run_module():
         new=dict(type='bool', required=False, default=False)
     )'''
     module_args = dict(
-        commands=dict(type='list',required=False),
-        source_file=dict(type='str',required=False),
-        ordered=dict(
+        master_config_file=dict(type='str',required=True),
+        config_file=dict(type='str', required=True),
+        ordered=dict(type='bool', required=False, default=True),
         name=dict(type='str', required=True),
-        new=dict(type='bool', required=False, default=False)
     )
 
     # seed the result dict in the object
@@ -102,12 +101,20 @@ def run_module():
     # state with no modifications
     if module.check_mode:
         return result
-
+    
+    
+    
+#--This is the main program---------------------------------------------------------------------------------------------------------
     # manipulate or modify the state as needed (this is going to be the
     # part where your module will do what it needs to do)
     result['original_message'] = module.params['name']
+    
+        
+        
+        
+        
     result['message'] = 'goodbye'
-
+#-----------------------------------------------------------------------------------------------------------------------------------
     # use whatever logic you need to determine whether or not this module
     # made any modifications to your target
     if module.params['new']:
